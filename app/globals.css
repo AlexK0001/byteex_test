@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts fallback (Sofia Pro & Suisse Int'l are commercial) ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --navy: #01005B;
+  --navy-2: #2A2996;
+  --cream: #F9F0E5;
+  --cream-dark: #F0EEEF;
+  --muted: #676869;
+  --border: #EAEAEA;
+  --gold: #FFB801;
+  --green: #1FAD40;
+
+  /* Map commercial fonts to free alternatives */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--navy);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography matching Figma ── */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
+}
+
+/* ── CTA Button ── */
+.btn-primary {
+  @apply inline-flex items-center gap-3 bg-[#01005B] text-white px-8 py-4 rounded-[5px] text-[18px] leading-[23px] tracking-[0.03em] transition-all duration-200 hover:bg-[#0a0a8a] active:scale-[0.98] whitespace-nowrap;
+  font-family: var(--font-body);
+}
+
+.btn-primary svg {
+  flex-shrink: 0;
+}
+
+/* ── Announcement bar ── */
+.announcement-bar {
+  background: var(--cream);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #565656;
+  line-height: 35px;
+  text-align: center;
+  height: 36px;
+}
+
+/* ── Star rating ── */
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* ── Section spacing ── */
+.section-pad {
+  @apply py-16 px-6 md:px-[100px];
+}
+
+/* ── Divider line ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Card ── */
+.review-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  box-shadow: 0px 3px 10px 1px rgba(0,0,0,0.08);
+  border-radius: 8px;
+}
+
+/* ── FAQ accordion ── */
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+
+.faq-toggle .icon {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--navy);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.faq-toggle[aria-expanded="true"] .icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  font-family: var(--font-body);
+}
+
+.faq-answer.open {
+  max-height: 300px;
+  padding-bottom: 16px;
+}
+
+/* ── Instagram grid ── */
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 0;
+}
+
+.instagram-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Green impact bar ── */
+.impact-bar {
+  background: var(--cream-dark);
+  padding: 40px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+/* ── Testimonial slider arrows ── */
+.slider-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--muted);
+  border: none;
+  background: none;
+  font-size: 20px;
+  transition: color 0.15s;
+}
+
+.slider-arrow:hover {
+  color: var(--navy);
+}
+
+/* ── "As seen in" logos ── */
+.media-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ── Hero image collage ── */
+.hero-collage {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+/* ── Product image stack ── */
+.product-stack {
+  position: relative;
+}
