@@ -1,72 +1,67 @@
 import type { FC } from "react";
 import type { GreenImpact } from "@/types/contentful";
 
-interface GreenImpactProps {
-  data: GreenImpact;
-}
+interface GreenImpactProps { data: GreenImpact; }
 
 const GreenImpactSection: FC<GreenImpactProps> = ({ data }) => {
   const stats = [
-    {
-      icon: (
-        <div className="w-[42px] h-[42px] rounded-full flex items-center justify-center" style={{ background: "#E4E4E4" }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9" stroke="#2A2996" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M16 3l3 3-3 3" stroke="#2A2996" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-      ),
-      value: data.co2Saved,
-      label: "of CO2 saved",
-    },
-    {
-      icon: (
-        <div className="w-[42px] h-[42px] rounded-full flex items-center justify-center" style={{ background: "#E4E4E4" }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C12 2 5 10 5 14.5C5 18.09 8.13 21 12 21C15.87 21 19 18.09 19 14.5C19 10 12 2 12 2Z" fill="#2A2996"/>
-            <path d="M8 15C8.5 13 10 12 12 12" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-        </div>
-      ),
-      value: data.waterSaved,
-      label: "of drinking water saved",
-    },
-    {
-      icon: (
-        <div className="w-[42px] h-[42px] rounded-full flex items-center justify-center" style={{ background: "#E4E4E4" }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L4.5 13.5H11.5L11 22L19.5 10.5H12.5L13 2Z" fill="#2A2996"/>
-          </svg>
-        </div>
-      ),
-      value: data.energySaved,
-      label: "of energy saved",
-    },
+    { value: data.co2Saved,    label: "of CO2 saved" },
+    { value: data.waterSaved,  label: "of drinking water saved" },
+    { value: data.energySaved, label: "of energy saved" },
+  ];
+  const icons = [
+    /* CO2 recycle */
+    <svg key="co2" width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8" stroke="#2A2996" strokeWidth="1.8" strokeLinecap="round"/>
+      <path d="M16 4l3 3-3 3" stroke="#2A2996" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>,
+    /* Water drop */
+    <svg key="water" width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3C12 3 5 11 5 15.5C5 19.1 8.13 22 12 22C15.87 22 19 19.1 19 15.5C19 11 12 3 12 3Z" fill="#2A2996"/>
+      <path d="M8 16C8.5 14 10 13 12 13" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>,
+    /* Lightning */
+    <svg key="energy" width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <path d="M13 2L4.5 13.5H11.5L11 22L19.5 10.5H12.5L13 2Z" fill="#2A2996"/>
+    </svg>,
   ];
 
   return (
-    <section id="sustainability" style={{ background: "#F0EEEF" }}>
-      <div className="max-w-[1465px] mx-auto px-6 md:px-[96px] py-[40px]">
-        <h2
-          className="text-center mb-8"
-          style={{ fontFamily: "var(--font-display)", fontSize: "25px", lineHeight: "40px", letterSpacing: "0.04em", color: "#15005B" }}
-        >
+    <section id="sustainability" style={{ background: "#F0EEEF", padding: "40px 0" }}>
+      <div className="wrap">
+        <h2 style={{
+          fontFamily:"var(--font-serif)", fontSize:25, lineHeight:"40px",
+          letterSpacing:"0.04em", color:"#15005B", textAlign:"center",
+          fontWeight:400, marginBottom:32,
+        }}>
           Our total green impact
         </h2>
-        <div className="flex flex-col md:flex-row items-center justify-center">
-          {stats.map((stat, i) => (
-            <div key={i} className="flex flex-col items-center text-center px-10 py-4 relative">
-              {i > 0 && (
-                <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2" style={{ width: "1px", height: "122px", background: "rgba(196,196,196,0.5)" }} />
-              )}
-              <div className="mb-3">{stat.icon}</div>
-              <p style={{ fontFamily: "var(--font-display)", fontSize: "22px", lineHeight: "20px", letterSpacing: "0.02em", color: "#15005B", fontWeight: 600, marginBottom: "4px" }}>
-                {stat.value}
-              </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "14px", lineHeight: "20px", letterSpacing: "0.03em", color: "#15005B" }}>
-                {stat.label}
-              </p>
-            </div>
+
+        <div className="impact-grid">
+          {stats.map((s, i) => (
+            <>
+              {i > 0 && <div key={`div-${i}`} className="impact-divider" />}
+              <div key={i} className="impact-item">
+                <div style={{
+                  width:42, height:42, borderRadius:"50%", background:"#E4E4E4",
+                  display:"flex", alignItems:"center", justifyContent:"center", marginBottom:12,
+                }}>
+                  {icons[i]}
+                </div>
+                <p style={{
+                  fontFamily:"var(--font-serif)", fontSize:22, lineHeight:"20px",
+                  letterSpacing:"0.02em", color:"#15005B", fontWeight:600, marginBottom:4,
+                }}>
+                  {s.value}
+                </p>
+                <p style={{
+                  fontFamily:"var(--font-sans)", fontSize:14, lineHeight:"20px",
+                  letterSpacing:"0.03em", color:"#15005B",
+                }}>
+                  {s.label}
+                </p>
+              </div>
+            </>
           ))}
         </div>
       </div>
