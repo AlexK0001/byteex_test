@@ -1,4 +1,4 @@
-"use client";
+import type { FC } from "react";
 import Image from "next/image";
 import type { ProductFeature } from "@/types/contentful";
 
@@ -13,7 +13,6 @@ function LeafIcon() {
     </svg>
   );
 }
-
 function RecycleIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -23,7 +22,6 @@ function RecycleIcon() {
     </svg>
   );
 }
-
 function HomeIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -31,8 +29,7 @@ function HomeIcon() {
     </svg>
   );
 }
-
-function StarIcon() {
+function StarIconSvg() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
       <path d="M12 2L14.4 9.2H22L16 13.8L18.4 21L12 16.4L5.6 21L8 13.8L2 9.2H9.6L12 2Z" fill="#01005B"/>
@@ -44,18 +41,12 @@ const iconMap: Record<string, React.ReactNode> = {
   leaf: <LeafIcon />,
   recycle: <RecycleIcon />,
   home: <HomeIcon />,
-  star: <StarIcon />,
+  star: <StarIconSvg />,
 };
-
-const PRODUCT_IMAGES = [
-  "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=429&h=630&fit=crop",
-  "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=429&h=630&fit=crop",
-  "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=429&h=630&fit=crop",
-];
 
 const THUMBNAIL_IMAGES = [
   "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=31&h=32&fit=crop",
-  "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=31&h=32&fit=crop&facepad=2",
+  "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=31&h=32&fit=crop",
   "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=31&h=32&fit=crop",
   "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=31&h=32&fit=crop",
   "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=31&h=32&fit=crop",
@@ -64,7 +55,7 @@ const THUMBNAIL_IMAGES = [
   "https://images.unsplash.com/photo-1603344204980-4edb0ea63148?w=31&h=32&fit=crop",
 ];
 
-export default function Features({ features }: FeaturesProps) {
+const Features: FC<FeaturesProps> = ({ features }) => {
   return (
     <section id="shop" className="py-[64px] px-6 md:px-[96px]">
       <h2
@@ -82,42 +73,21 @@ export default function Features({ features }: FeaturesProps) {
 
       <div className="flex gap-12 items-start">
         {/* LEFT — feature list */}
-        <div className="flex-1 max-w-[560px] flex flex-col gap-0">
+        <div className="flex-1 max-w-[560px] flex flex-col">
           {features.map((feature, i) => (
             <div
               key={i}
               className="flex gap-4 items-start py-5"
               style={{ borderBottom: i < features.length - 1 ? "1px solid #EAEAEA" : "none" }}
             >
-              {/* Icon in cream circle */}
-              <div
-                className="flex-shrink-0 w-[42px] h-[42px] rounded-full flex items-center justify-center"
-                style={{ background: "#F9F0E5" }}
-              >
-                {iconMap[feature.icon] ?? <StarIcon />}
+              <div className="flex-shrink-0 w-[42px] h-[42px] rounded-full flex items-center justify-center" style={{ background: "#F9F0E5" }}>
+                {iconMap[feature.icon] ?? <StarIconSvg />}
               </div>
               <div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "22px",
-                    lineHeight: "24px",
-                    letterSpacing: "0.04em",
-                    color: "#01005B",
-                    marginBottom: "6px",
-                  }}
-                >
+                <h3 style={{ fontFamily: "var(--font-display)", fontSize: "22px", lineHeight: "24px", letterSpacing: "0.04em", color: "#01005B", marginBottom: "6px" }}>
                   {feature.title}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "15px",
-                    lineHeight: "23px",
-                    letterSpacing: "0.03em",
-                    color: "#6C6C6C",
-                  }}
-                >
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: "23px", letterSpacing: "0.03em", color: "#6C6C6C" }}>
                   {feature.description}
                 </p>
               </div>
@@ -125,73 +95,24 @@ export default function Features({ features }: FeaturesProps) {
           ))}
         </div>
 
-        {/* RIGHT — product image with nav arrows + thumbnails */}
+        {/* RIGHT — product image */}
         <div className="hidden lg:block flex-shrink-0 relative" style={{ width: "429px" }}>
-          {/* Arrow left */}
-          <button
-            className="slider-arrow absolute left-[-32px] top-[50%] -translate-y-1/2 z-10"
-            aria-label="Previous image"
-          >
-            <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
-              <path d="M10 2L2 10L10 18" stroke="#676869" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <button className="slider-arrow absolute left-[-32px] top-[50%] -translate-y-1/2 z-10" aria-label="Previous image">
+            <svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M10 2L2 10L10 18" stroke="#676869" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
-
-          {/* Main product image */}
           <div className="rounded-[8px] overflow-hidden" style={{ width: "429px", height: "630px" }}>
-            <Image
-              src={PRODUCT_IMAGES[0]}
-              alt="White Robe product"
-              width={429}
-              height={630}
-              className="w-full h-full object-cover"
-            />
+            <Image src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=429&h=630&fit=crop" alt="White Robe product" width={429} height={630} className="w-full h-full object-cover" />
           </div>
-
-          {/* Arrow right */}
-          <button
-            className="slider-arrow absolute right-[-32px] top-[50%] -translate-y-1/2 z-10"
-            aria-label="Next image"
-          >
-            <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
-              <path d="M2 2L10 10L2 18" stroke="#676869" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <button className="slider-arrow absolute right-[-32px] top-[50%] -translate-y-1/2 z-10" aria-label="Next image">
+            <svg width="12" height="20" viewBox="0 0 12 20" fill="none"><path d="M2 2L10 10L2 18" stroke="#676869" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
-
-          {/* Product label */}
-          <p
-            className="mt-3 text-center"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "13px",
-              lineHeight: "22px",
-              letterSpacing: "0.03em",
-              color: "#676869",
-            }}
-          >
+          <p className="mt-3 text-center" style={{ fontFamily: "var(--font-body)", fontSize: "13px", lineHeight: "22px", letterSpacing: "0.03em", color: "#676869" }}>
             White Robe
           </p>
-
-          {/* Thumbnail strip */}
           <div className="flex gap-1 mt-2 justify-center flex-wrap">
             {THUMBNAIL_IMAGES.map((src, i) => (
-              <div
-                key={i}
-                className="rounded-[3px] overflow-hidden"
-                style={{
-                  width: "31px",
-                  height: "32px",
-                  border: i === 1 ? "2px solid #FFFFFF" : "none",
-                  boxShadow: i === 1 ? "0 0 0 1px #01005B" : "none",
-                }}
-              >
-                <Image
-                  src={src}
-                  alt={`Thumbnail ${i + 1}`}
-                  width={31}
-                  height={32}
-                  className="w-full h-full object-cover"
-                />
+              <div key={i} className="rounded-[3px] overflow-hidden" style={{ width: "31px", height: "32px", border: i === 1 ? "2px solid #FFFFFF" : "none", boxShadow: i === 1 ? "0 0 0 1px #01005B" : "none" }}>
+                <Image src={src} alt={`Thumbnail ${i + 1}`} width={31} height={32} className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
@@ -199,4 +120,6 @@ export default function Features({ features }: FeaturesProps) {
       </div>
     </section>
   );
-}
+};
+
+export default Features;
