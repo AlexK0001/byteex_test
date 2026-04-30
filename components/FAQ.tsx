@@ -6,58 +6,55 @@ import type { FAQItem } from "@/types/contentful";
 interface FAQProps { items: FAQItem[]; }
 
 const FAQ: FC<FAQProps> = ({ items }) => {
-  const [open, setOpen] = useState<number>(0);
-  return (
-    <section id="faq" style={{ padding: "80px 0", background: "#fff" }}>
-      <div className="wrap">
-        <div style={{ display:"flex", gap:64, alignItems:"flex-start" }}>
+  const [open, setOpen] = useState(0);
+  const imgs = [
+    "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=270&h=370&fit=crop&auto=format",
+    "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=180&h=180&fit=crop&auto=format",
+    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=180&h=180&fit=crop&auto=format",
+  ];
 
-          {/* FAQ list */}
-          <div style={{ flex:1, maxWidth:640 }}>
-            <h2 style={{
-              fontFamily:"var(--font-serif)", fontSize:32, lineHeight:"40px",
-              letterSpacing:"0.04em", color:"#01005B", fontWeight:400, marginBottom:32,
-            }}>
-              Frequently asked questions.
-            </h2>
-            {items.map((item, i) => (
-              <div key={i} className="faq-item">
+  return (
+    <section className="faq" id="faq">
+      <div className="wrap">
+        <div className="faq__inner">
+          <div className="faq__col">
+            <h2 className="faq__h2">Frequently asked questions.</h2>
+            {items.map((item,i) => (
+              <div key={i} className="faq__item">
                 <button
-                  className="faq-toggle"
-                  aria-expanded={open === i}
-                  onClick={() => setOpen(p => p === i ? -1 : i)}
+                  className="faq__toggle"
+                  aria-expanded={open===i}
+                  onClick={()=>setOpen(p=>p===i?-1:i)}
                 >
                   <span>{item.question}</span>
-                  <span className="faq-icon">{open === i ? "−" : "+"}</span>
+                  <span className="faq__plus">{open===i?"−":"+"}</span>
                 </button>
-                <div className={`faq-answer${open === i ? " open" : ""}`}>
+                <div className={`faq__answer${open===i?" open":""}`}>
                   {item.answer}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Image stack */}
-          <div style={{ flexShrink:0, width:430, height:645, position:"relative" }}>
+          <div className="faq__imgs">
             {/* bg circle */}
-            <div style={{ position:"absolute", width:120, height:120, borderRadius:"50%", background:"#F9F0E5", bottom:60, left:100 }} />
+            <div style={{ position:"absolute", width:110, height:110, borderRadius:"50%", background:"#F9F0E5", bottom:56, left:96 }}/>
             {/* main */}
-            <div style={{ position:"absolute", left:60, top:0, width:280, height:390, borderRadius:6, overflow:"hidden", boxShadow:"0 3px 10px 1px rgba(0,0,0,0.08)" }}>
+            <div style={{ position:"absolute", left:56, top:0, width:270, height:370, borderRadius:6, overflow:"hidden", boxShadow:"0 3px 10px 1px rgba(0,0,0,.08)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=280&h=390&fit=crop&auto=format" alt="FAQ product" style={{ width:"100%", height:"100%", objectFit:"cover" }} loading="lazy"/>
+              <img src={imgs[0]} alt="" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
             </div>
             {/* bottom left */}
-            <div style={{ position:"absolute", left:0, bottom:60, width:185, height:185, borderRadius:6, overflow:"hidden", boxShadow:"0 3px 10px 1px rgba(0,0,0,0.08)", border:"4px solid #F0EEEF" }}>
+            <div style={{ position:"absolute", left:0, bottom:56, width:180, height:180, borderRadius:6, overflow:"hidden", border:"4px solid #F0EEEF", boxShadow:"0 3px 10px 1px rgba(0,0,0,.08)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=185&h=185&fit=crop&auto=format" alt="FAQ product 2" style={{ width:"100%", height:"100%", objectFit:"cover" }} loading="lazy"/>
+              <img src={imgs[1]} alt="" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
             </div>
             {/* bottom right */}
-            <div style={{ position:"absolute", right:0, bottom:0, width:185, height:185, borderRadius:6, overflow:"hidden", boxShadow:"0 3px 10px 1px rgba(0,0,0,0.08)", border:"4px solid #F0EEEF" }}>
+            <div style={{ position:"absolute", right:0, bottom:0, width:180, height:180, borderRadius:6, overflow:"hidden", border:"4px solid #F0EEEF", boxShadow:"0 3px 10px 1px rgba(0,0,0,.08)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=185&h=185&fit=crop&auto=format" alt="FAQ product 3" style={{ width:"100%", height:"100%", objectFit:"cover" }} loading="lazy"/>
+              <img src={imgs[2]} alt="" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
             </div>
           </div>
-
         </div>
       </div>
     </section>

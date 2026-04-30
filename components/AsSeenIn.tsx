@@ -1,33 +1,22 @@
-// components/AsSeenIn.tsx
-
 export default function AsSeenIn() {
   const logos = [
-    { name: "Eco-Stylist", style: { fontFamily: "var(--font-display)", fontSize: "15px", letterSpacing: "0.08em", textTransform: "uppercase" as const, color: "#868787" } },
-    { name: "Canadian Living", style: { fontFamily: "var(--font-body)", fontSize: "18px", letterSpacing: "0.03em", color: "#868787" } },
-    { name: "GILLIAN HARRIS", style: { fontFamily: "var(--font-display)", fontSize: "14px", letterSpacing: "0.1em", textTransform: "uppercase" as const, color: "#868787" } },
-    { name: "The Eco Hub", style: { fontFamily: "var(--font-display)", fontSize: "16px", letterSpacing: "0.04em", color: "#868787" } },
-    { name: "TrendHunter", style: { fontFamily: "var(--font-body)", fontSize: "16px", letterSpacing: "0.02em", color: "#868787", fontWeight: 500 } },
+    { name:"ECO-STYLIST",     fam:"var(--font-sans)",  sz:13, ls:"0.12em", up:true  },
+    { name:"Canadian Living", fam:"var(--font-serif)", sz:18, ls:"0.03em", up:false },
+    { name:"GILLIAN HARRIS",  fam:"var(--font-serif)", sz:14, ls:"0.12em", up:true  },
+    { name:"The Eco Hub",     fam:"var(--font-serif)", sz:16, ls:"0.04em", up:false },
+    { name:"TrendHunter",     fam:"var(--font-sans)",  sz:16, ls:"0.02em", up:false, w:500 },
   ];
-
   return (
-    <section className="py-10 px-6 md:px-[96px] border-t border-[#EAEAEA]">
-      <p
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "20px",
-          lineHeight: "23px",
-          letterSpacing: "0.03em",
-          color: "#868787",
-          textAlign: "center",
-          marginBottom: "28px",
-        }}
-      >
-        as seen in
-      </p>
-      <div className="media-logos">
-        {logos.map((logo) => (
-          <span key={logo.name} style={logo.style}>
-            {logo.name}
+    <section className="seen">
+      <p className="seen__label">as seen in</p>
+      <div className="seen__logos">
+        {logos.map(l=>(
+          <span key={l.name} style={{
+            fontFamily:l.fam, fontSize:l.sz, letterSpacing:l.ls,
+            color:"#868787", fontWeight:l.w??400,
+            textTransform:l.up?"uppercase":"none",
+          }}>
+            {l.name}
           </span>
         ))}
       </div>

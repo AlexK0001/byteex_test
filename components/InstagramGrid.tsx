@@ -1,4 +1,3 @@
-// 22 photos in 2 rows × 11 columns — matches Figma exactly
 const IMGS = [
   "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=130&h=130&fit=crop&auto=format",
   "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=130&h=130&fit=crop&auto=format",
@@ -26,12 +25,12 @@ const IMGS = [
 
 export default function InstagramGrid() {
   return (
-    <section style={{ width: "100%", overflow: "hidden" }}>
-      <div className="instagram-grid">
-        {IMGS.map((src, i) => (
+    <section style={{ width:"100%", overflow:"hidden" }}>
+      <div className="ig-grid">
+        {IMGS.map((src,i) => (
           <div key={i}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={`Community photo ${i + 1}`} loading="lazy" />
+            <img src={src} alt="" loading="lazy"/>
           </div>
         ))}
       </div>
