@@ -12,6 +12,9 @@ const IMGS = {
   t2: "https://images.unsplash.com/photo-1603344204980-4edb0ea63148?w=75&h=75&fit=crop&auto=format",
   t3: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=75&h=75&fit=crop&auto=format",
   t4: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=75&h=75&fit=crop&auto=format",
+  mob1: "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=220&h=260&fit=crop&auto=format",
+  mob2: "https://images.unsplash.com/photo-1617952739396-2e6a0a9c1a32?w=110&h=126&fit=crop&auto=format",
+  mob3: "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=110&h=126&fit=crop&auto=format",
 };
 
 const BULLET_ICONS = [
@@ -27,32 +30,45 @@ const Hero: FC<HeroProps> = ({ content }) => {
     <>
       {/* Announcement bar */}
       <div className="bar">
-        CONSCIOUSLY MADE BUTTER SOFT STAPLES FOR EVERY DAY (OR NIGHT)&nbsp;&nbsp;|&nbsp;&nbsp;FREE SHIPPING on orders &gt; $200&nbsp;&nbsp;|&nbsp;&nbsp;easy 45 day return window.
+        CONSCIOUSLY MADE BUTTER SOFT STAPLES FOR EVERY DAY&nbsp;|&nbsp;FREE SHIPPING on orders &gt; $200&nbsp;|&nbsp;easy 45 day return window.
       </div>
 
       <section className="hero">
         <div className="hero__grad" />
 
-        <div className="wrap hero__inner">
+        <div className="wrap">
 
-          {/* ═══ LEFT ═══ */}
-          <div className="hero__left">
-            {/* BYTEEX logo — in section, left on desktop */}
-            <span className="hero__logo">BYTEEX</span>
+          {/* ═══ MOBILE HERO ═══ */}
+          <div className="hero__mob">
+            <span className="hero__logo hero__logo--center">BYTEEX</span>
 
-            <h1 className="hero__h1">{content.headline}</h1>
+            {/* Mobile image collage: big left + 2 small right */}
+            <div className="hero__mob-collage">
+              <div className="hero__mob-main">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.mob1} alt="Loungewear"/>
+              </div>
+              <div className="hero__mob-side">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.mob2} alt="Style"/>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.mob3} alt="Model"/>
+              </div>
+            </div>
 
-            <ul className="hero__bullets">
+            <h1 className="hero__h1 hero__h1--center">{content.headline}</h1>
+
+            <ul className="hero__bullets hero__bullets--center">
               {bullets.map(({ text, icon }, i) => (
                 <li key={i} className="hero__bullet">
-                  <span style={{ marginTop: 3, flexShrink: 0 }}>{icon}</span>
+                  <span style={{ marginTop:3, flexShrink:0 }}>{icon}</span>
                   <span>{text}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="hero__cta">
-              <a href={content.ctaUrl} className="btn">
+            <div className="hero__cta hero__cta--center">
+              <a href={content.ctaUrl} className="btn btn--full">
                 {content.ctaText}
                 <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
                   <path d="M1 5H17M17 5L13 1M17 5L13 9" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -60,18 +76,14 @@ const Hero: FC<HeroProps> = ({ content }) => {
               </a>
             </div>
 
-            {/* Review card */}
+            {/* Review */}
             <div className="card hero__review">
               <div className="hero__reviewer">
                 <div className="hero__avatar">{content.reviewerName.charAt(0)}</div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <p className="hero__name">{content.reviewerName}</p>
                   <div className="hero__review-meta">
-                    <div className="stars">
-                      {Array.from({length:5}).map((_,i)=>(
-                        <span key={i} className={`star${i>=4?" star--empty":""}`}/>
-                      ))}
-                    </div>
+                    <div className="stars">{Array.from({length:5}).map((_,i)=><span key={i} className={`star${i>=4?" star--empty":""}`}/>)}</div>
                     <span className="hero__review-count">{content.reviewCount}</span>
                   </div>
                 </div>
@@ -80,54 +92,73 @@ const Hero: FC<HeroProps> = ({ content }) => {
             </div>
           </div>
 
-          {/* ═══ RIGHT — Desktop collage ═══ */}
-          <div className="hero__collage">
-            {/* Main large image */}
-            <div className="hero__coll-abs" style={{ position:"absolute", left:100, top:0 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.main} alt="Loungewear" width={391} height={445} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
-            </div>
-            {/* Tall left */}
-            <div className="hero__coll-abs" style={{ position:"absolute", left:0, top:28 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.tall} alt="Model" width={158} height={300} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
-            </div>
-            {/* Center featured */}
-            <div className="hero__coll-abs" style={{ position:"absolute", left:50, top:44, border:"4px solid #fff", borderRadius:6, overflow:"hidden" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.center} alt="Featured" width={220} height={316} style={{ display:"block", objectFit:"cover" }}/>
-            </div>
-            {/* Right tall */}
-            <div className="hero__coll-abs" style={{ position:"absolute", right:0, top:0 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.right} alt="Style" width={116} height={225} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
-            </div>
-            {/* Thumbs row */}
-            <div className="hero__coll-abs" style={{ position:"absolute", left:50, top:372, display:"flex", gap:4 }}>
-              {[IMGS.t1,IMGS.t2,IMGS.t3,IMGS.t4].map((src,i)=>(
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={i} src={src} alt={`v${i}`} width={75} height={75} style={{ borderRadius:4, objectFit:"cover", display:"block" }}/>
-              ))}
-            </div>
-            {/* Label + swatches */}
-            <div className="hero__coll-abs" style={{ position:"absolute", right:0, top:234, textAlign:"center" }}>
-              <p style={{ fontFamily:"var(--font-sans)", fontSize:12, color:"#676869", letterSpacing:"0.03em", marginBottom:6 }}>White Robe</p>
-              <div style={{ display:"flex", gap:4, justifyContent:"center" }}>
-                <div style={{ width:18, height:18, borderRadius:"50%", background:"#6FB880", border:"2px solid #000" }}/>
-                <div style={{ width:18, height:18, borderRadius:"50%", background:"#FF8A01", border:"2px solid #D7D7D7" }}/>
+          {/* ═══ DESKTOP HERO ═══ */}
+          <div className="hero__desk">
+            <div className="hero__left">
+              <span className="hero__logo">BYTEEX</span>
+              <h1 className="hero__h1">{content.headline}</h1>
+              <ul className="hero__bullets">
+                {bullets.map(({ text, icon }, i) => (
+                  <li key={i} className="hero__bullet">
+                    <span style={{ marginTop:3, flexShrink:0 }}>{icon}</span>
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="hero__cta">
+                <a href={content.ctaUrl} className="btn">
+                  {content.ctaText}
+                  <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+                    <path d="M1 5H17M17 5L13 1M17 5L13 9" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+              <div className="card hero__review">
+                <div className="hero__reviewer">
+                  <div className="hero__avatar">{content.reviewerName.charAt(0)}</div>
+                  <div>
+                    <p className="hero__name">{content.reviewerName}</p>
+                    <div className="hero__review-meta">
+                      <div className="stars">{Array.from({length:5}).map((_,i)=><span key={i} className={`star${i>=4?" star--empty":""}`}/>)}</div>
+                      <span className="hero__review-count">{content.reviewCount}</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="hero__review-text">{content.reviewText}</p>
               </div>
             </div>
 
-            {/* Mobile collage layout (visible only on mobile via CSS classes) */}
-            <div className="hero__collage-main">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.center} alt="Loungewear" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
-            </div>
-            <div className="hero__collage-side">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.tall} alt="Model" style={{ width:"100%", height:125, objectFit:"cover", borderRadius:6 }}/>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMGS.right} alt="Style" style={{ width:"100%", height:125, objectFit:"cover", borderRadius:6 }}/>
+            {/* Desktop collage */}
+            <div className="hero__collage">
+              <div style={{ position:"absolute", left:100, top:0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.main} alt="Loungewear" width={391} height={445} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
+              </div>
+              <div style={{ position:"absolute", left:0, top:28 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.tall} alt="Model" width={158} height={300} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
+              </div>
+              <div style={{ position:"absolute", left:50, top:44, border:"4px solid #fff", borderRadius:6, overflow:"hidden" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.center} alt="Featured" width={220} height={316} style={{ display:"block", objectFit:"cover" }}/>
+              </div>
+              <div style={{ position:"absolute", right:0, top:0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={IMGS.right} alt="Style" width={116} height={225} style={{ borderRadius:8, objectFit:"cover", display:"block" }}/>
+              </div>
+              <div style={{ position:"absolute", left:50, top:372, display:"flex", gap:4 }}>
+                {[IMGS.t1,IMGS.t2,IMGS.t3,IMGS.t4].map((src,i)=>(
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={i} src={src} alt="" width={75} height={75} style={{ borderRadius:4, objectFit:"cover", display:"block" }}/>
+                ))}
+              </div>
+              <div style={{ position:"absolute", right:0, top:234, textAlign:"center" }}>
+                <p style={{ fontFamily:"var(--font-sans)", fontSize:12, color:"#676869", letterSpacing:"0.03em", marginBottom:6 }}>White Robe</p>
+                <div style={{ display:"flex", gap:4, justifyContent:"center" }}>
+                  <div style={{ width:18, height:18, borderRadius:"50%", background:"#6FB880", border:"2px solid #000" }}/>
+                  <div style={{ width:18, height:18, borderRadius:"50%", background:"#FF8A01", border:"2px solid #D7D7D7" }}/>
+                </div>
+              </div>
             </div>
           </div>
 
